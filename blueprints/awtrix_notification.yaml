@@ -1,0 +1,41 @@
+blueprint:
+  name: Awtrix Notification
+  description: >-
+    A script that notify an Awtrix display.
+  domain: script
+  source_url: https://raw.githubusercontent.com/0xtter/HomeAssistantCustom/main/blueprints/awtrix_notification.yaml
+  author: 0xtter
+  input:
+    awtrix:
+      name: AWTRIX Device
+      description: Select the Awtrix device
+      selector:
+        device:
+          integration: mqtt
+          manufacturer: Blueforcer
+          model: AWTRIX 3
+          multiple: true
+    title:
+      name: "Text"
+      description: "The text to show in the notification."
+      default: ""
+      selector:
+        text:
+    icon_number:
+      name: "Icon"
+      description: "The icon ID of the icon to show in the notification"
+      default: "Confirm"
+      selector:
+        number:
+          mode: box
+
+action:
+  - alias: "Publish Awtrix notification to mqtt"
+    service: mqtt.publish
+    metadata: {}
+    data:
+      qos: 0
+      retain: false
+      topic: "{{ device }}/notify"
+      payload: "{\"text\": \"Hello, AWTRIX 3!\",\"rainbow\": true,\"duration\": 10,\"icon\": 6881}"
+
