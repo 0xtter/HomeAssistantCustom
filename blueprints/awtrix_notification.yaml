@@ -35,5 +35,5 @@ sequence:
     data:
       qos: 0
       retain: false
-      topic: "{{ device }}/notify"
+      topic: "awtrix_3b22d0/notify"
       payload: "{\"text\": \"Hello, AWTRIX 3!\",\"rainbow\": true,\"duration\": 10,\"icon\": 6881}"
