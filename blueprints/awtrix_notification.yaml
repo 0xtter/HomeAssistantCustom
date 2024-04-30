@@ -29,13 +29,11 @@ blueprint:
         number:
           mode: box
 
-action:
-  - alias: "Publish Awtrix notification to mqtt"
-    service: mqtt.publish
+sequence:
+  - service: mqtt.publish
     metadata: {}
     data:
       qos: 0
       retain: false
       topic: "{{ device }}/notify"
       payload: "{\"text\": \"Hello, AWTRIX 3!\",\"rainbow\": true,\"duration\": 10,\"icon\": 6881}"
-
