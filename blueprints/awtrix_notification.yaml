@@ -28,13 +28,6 @@ blueprint:
       selector:
         number:
           mode: box
-  fields:
-    title:
-      description: The title of the notification
-      example: State change
-    message:
-      description: The message content
-      example: The light is on!
   sequence:
     - service: mqtt.publish
       metadata: {}
