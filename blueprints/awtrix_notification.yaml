@@ -28,11 +28,11 @@ blueprint:
       selector:
         number:
           mode: box
-  sequence:
-    - service: mqtt.publish
-      metadata: {}
-      data:
-        qos: 0
-        retain: false
-        topic: awtrix_3b22d0/notify
-        payload: '{"text": "{{ title }}","rainbow": true,"duration": 10,"icon": 6881}'
+sequence:
+  - service: mqtt.publish
+    metadata: {}
+    data:
+      qos: 0
+      retain: false
+      topic: awtrix_3b22d0/notify
+      payload: '{"text": "{{ message }}","rainbow": true,"duration": 10,"icon": 6881}'
