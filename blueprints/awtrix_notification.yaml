@@ -29,12 +29,12 @@ blueprint:
         number:
           mode: box
 
+fields:
+  message:
+    description: The message of the notification
+    example: Hello Awtrix!
+
 sequence:
-  fields:
-    message:
-      description: The message of the notification
-      example: Hello Awtrix!
-  sequence:
   - service: mqtt.publish
     metadata: {}
     data:
