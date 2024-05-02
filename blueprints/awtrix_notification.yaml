@@ -28,17 +28,18 @@ blueprint:
       selector:
         number:
           mode: box
-
-fields:
-  message:
-    description: The message of the notification
-    example: Hello Awtrix!
-
-sequence:
-  - service: mqtt.publish
-    metadata: {}
-    data:
-      qos: 0
-      retain: false
-      topic: awtrix_3b22d0/notify
-      payload: '{"text": "{{ messsage }}","rainbow": true,"duration": 10,"icon": 6881}'
+  fields:
+    title:
+      description: The title of the notification
+      example: State change
+    message:
+      description: The message content
+      example: The light is on!
+  sequence:
+    - service: mqtt.publish
+      metadata: {}
+      data:
+        qos: 0
+        retain: false
+        topic: awtrix_3b22d0/notify
+        payload: '{"text": "{{ title }}","rainbow": true,"duration": 10,"icon": 6881}'
