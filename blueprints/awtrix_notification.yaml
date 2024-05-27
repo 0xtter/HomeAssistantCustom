@@ -5,483 +5,482 @@ blueprint:
   domain: script
   source_url: https://raw.githubusercontent.com/0xtter/HomeAssistantCustom/main/blueprints/awtrix_notification.yaml
   author: 0xtter
-  alias: Awtrix Notification
-  fields:
-    device:
-      name: AWTRIX Device
-      description: Select the Awtrix device
-      required: true
-      selector:
-        device:
-          integration: mqtt
-          manufacturer: Blueforcer
-          model: AWTRIX 3
-          multiple: false
-    text:
-      name: Message
-      description: The message to show in the notification.
-      required: true
-      default: ''
-      selector:
-        text:
-    duration:
-      name: Duration
-      description: The duration the notification stays on screen
-      required: false
-      default: 7
-      selector:
-        number:
-          min: 0
-          max: 60
-          step: 1
-          unit_of_measurement: seconds
-          mode: slider
-    icon:
-      name: Icon
-      description: The icon ID of the icon to show in the notification
-      default: 0
-      required: false
-      selector:
-        number:
-          mode: box
-    textCase:
-      name: textCase
-      description: Changes the Uppercase setting.
-      required: false
-      default: Global setting
-      selector:
-        select:
-          options:
-          - label: Global setting
-            value: '0'
-          - label: Forces uppercase
-            value: '1'
-          - label: Shows as it sent
-            value: '2'
-    topText:
-      name: topText
-      description: Draw the text on top.
-      default: false
-      required: false
-      selector:
-        boolean:
-    textOffset:
-      name: textOffset
-      description: Sets an offset for the x position of a starting text.
-      required: false
-      default: 0
-      selector:
-        number:
-          min: -32
-          max: 32
-          step: 1
-          unit_of_measurement: pixels
-          mode: slider
-    center:
-      name: center
-      description: Centers a short, non-scrollable text.
-      default: true
-      required: false
-      selector:
-        boolean:
-    rainbow:
-      name: rainbow
-      description: Fades each letter in the text differently through the entire RGB
-        spectrum.
-      default: false
-      required: false
-      selector:
-        boolean:
-    color:
-      name: color
-      description: The text, bar or line color.
-      default:
-      - 255
-      - 255
-      - 255
-      selector:
-        color_rgb:
-    gradient1:
-      name: gradient1
-      description: Colorizes the text in a gradient of two given colors. First color
-      required: false
-      default:
-      - 255
-      - 255
-      - 255
-      selector:
-        color_rgb:
-    gradient2:
-      name: gradient2
-      description: Colorizes the text in a gradient of two given colors. Second color
-      required: false
-      default:
-      - 255
-      - 255
-      - 255
-      selector:
-        color_rgb:
-    blinkText:
-      name: blinkText
-      description: Blinks the text in an given interval in ms, not compatible with
-        gradient or rainbow
-      default: 500
-      required: false
-      selector:
-        number:
-          min: 200
-          max: 5000
-          step: 10
-          unit_of_measurement: ms
-          mode: slider
-    fadeText:
-      name: fadeText
-      description: Fades the text on and off in an given interval, not compatible
-        with gradient or rainbow
-      default: 500
-      required: false
-      selector:
-        number:
-          min: 200
-          max: 5000
-          step: 10
-          unit_of_measurement: ms
-          mode: slider
-    background:
-      name: background
-      description: Sets a background color.
-      required: false
-      default:
-      - 255
-      - 255
-      - 255
-      selector:
-        color_rgb:
-    pushIcon:
-      name: pushIcon
-      description: Behaviour of icon
-      default: Icon doesn't move.
-      required: false
-      selector:
-        select:
-          options:
-          - label: Icon doesn't move.
-            value: '0'
-          - label: Icon moves with text and will not appear again.
-            value: '1'
-          - label: Icon moves with text but appears again when the text starts to
-              scroll again.
-            value: '2'
-    repeat:
-      name: repeat
-      description: Sets how many times the text should be scrolled through the matrix
-        before the app ends.
-      default: -1
-      required: false
-      selector:
-        number:
-          min: -1
-          max: 20
-          step: 1
-          unit_of_measurement: times
-          mode: slider
-    hold:
-      name: hold
-      description: Enable, to hold your **notification** on top until you press the
-        middle button or dismiss it via HomeAssistant.
-      default: false
-      required: false
-      selector:
-        boolean:
-    sound:
-      name: sound
-      description: The filename of your RTTTL ringtone file placed in the MELODIES
-        folder (without extension).
-      default: ''
-      required: false
-      selector:
-        text:
-    rtttl:
-      name: rtttl
-      description: Allows to send the RTTTL sound string with the json.
-      default: ''
-      required: false
-      selector:
-        text:
-    loopSound:
-      name: loopSound
-      description: Loops the sound or rtttl as long as the notification is running.
-      default: false
-      required: false
-      selector:
-        boolean:
-    bar:
-      name: bar
-      description: Draws a bargraph. Without icon maximum 16 values, with icon 11
-        values.
-      default: ''
-      required: false
-      selector:
-        text:
-    line:
-      name: line
-      description: Draws a linechart. Without icon maximum 16 values, with icon 11
-        values.
-      default: ''
-      required: false
-      selector:
-        text:
-    autoscale:
-      name: autoscale
-      description: Enables or disables autoscaling for bar and linechart.
-      default: true
-      required: false
-      selector:
-        boolean:
-    progress:
-      name: progress
-      description: Shows a progress bar. Value can be 0-100.
-      default: -1
-      required: false
-      selector:
-        number:
-          min: 0
-          max: 100
-          step: 1
-          unit_of_measurement: '%'
-          mode: slider
-    progressC:
-      name: progressC
-      description: The color of the progress bar.
-      default:
-      - 255
-      - 255
-      - 255
-      required: false
-      selector:
-        color_rgb:
-    progressBC:
-      name: progressBC
-      description: The color of the progress bar background.
-      default:
-      - 0
-      - 0
-      - 0
-      required: false
-      selector:
-        color_rgb:
-    pos:
-      name: pos
-      description: Defines the position of your custom page in the loop, starting
-        at 0 for the first position. This will only apply with your first push. This
-        function is experimental.
-      default: 0
-      required: false
-      selector:
-        number:
-          min: 0
-          step: 1
-          mode: box
-    draw:
-      name: draw
-      description: Array of drawing instructions. Each object represents a drawing
-        command. See the drawing instructions https://blueforcer.github.io/awtrix3/#/api?id=drawing-instructions).
-      default: ''
-      required: false
-      selector:
-        text:
-    lifetime:
-      name: lifetime
-      description: Removes the custom app when there is no update after the given
-        time in seconds.
-      default: 0
-      required: false
-      selector:
-        number:
-          min: 0
-          max: 500
-          step: 5
-          unit_of_measurement: s
-          mode: slider
-    lifetimeMode:
-      name: lifetimeMode
-      description: 0 = deletes the app, 1 = marks it as staled with a red rectangle
-        around the app
-      default: Deletes the app
-      required: false
-      selector:
-        select:
-          options:
-          - label: Deletes the app
-            value: '0'
-          - label: Marks it as staled with a red rectangle around the app
-            value: '1'
-    stack:
-      name: stack
-      description: Defines if the **notification** will be stacked. `false` will immediately
-        replace the current notification.
-      default: true
-      required: false
-      selector:
-        boolean:
-    wakeup:
-      name: wakeup
-      description: If the Matrix is off, the notification will wake it up for the
-        time of the notification.
-      default: false
-      required: false
-      selector:
-        boolean:
-    noScroll:
-      name: noScroll
-      description: Disables the text scrolling.
-      default: false
-      required: false
-      selector:
-        boolean:
-    clients:
-      name: clients
-      description: Allows forwarding a notification to other awtrix devices. Use the
-        MQTT prefix for MQTT and IP addresses for HTTP.
-      default: ''
-      required: false
-      selector:
-        device:
-          integration: mqtt
-          manufacturer: Blueforcer
-          model: AWTRIX 3
-          multiple: true
-    scrollSpeed:
-      name: scrollSpeed
-      description: Modifies the scroll speed. Enter a percentage value of the original
-        scroll speed.
-      default: 100
-      required: false
-      selector:
-        number:
-          min: 0
-          max: 300
-          step: 10
-          unit_of_measurement: '%'
-          mode: slider
-    effect:
-      name: effect
-      description: Shows an effect (https://blueforcer.github.io/awtrix3/#/effects)
-        as background.The effect can be removed by sending an empty string for effect
-      default: ''
-      required: false
-      selector:
-        select:
-          options:
-          - BrickBreaker
-          - Checkerboard
-          - Fireworks
-          - PingPong
-          - Radar
-          - Ripple
-          - Snake
-          - TwinklingStars
-          - TheaterChase
-          - ColorWaves
-          - SwirlOut
-          - SwirlIn
-          - LookingEyes
-          - Matrix
-          - Pacifica
-          - Plasma
-          - PlasmaCloud
-          - MovingLine
-    effectSettings:
-      name: effectSettings
-      description: One line json needed. Changes color and speed of the effect (https://blueforcer.github.io/awtrix3/#/effects).
-      default: ''
-      required: false
-      selector:
-        text:
-    save:
-      name: save
-      description: Saves your custom app into flash and reloads it after boot. Avoid
-        this for custom apps with high update frequencies because the ESP's flash
-        memory has limited write cycles.
-      default: false
-      required: false
-      selector:
-        boolean:
-    overlay:
-      name: overlay
-      description: Sets an effect overlay (cannot be used with global overlays).
-      default: ''
-      required: false
-      example: true
-      selector:
-        select:
-          options:
-          - clear
-          - snow
-          - rain
-          - drizzle
-          - storm
-          - thunder
-          - frost
-  sequence:
-  - service: mqtt.publish
-    metadata: {}
-    data:
-      qos: 0
-      retain: false
-      topic: '{{ device_attr(device, "name") }}/notify'
-      payload: "{{\n  '{' +\n  [\n  ('\"text\": \"' + (text | string) + '\"' if text
-        is not none and text is defined else ''),\n  ('\"textCase\": \"' + (textCase
-        | string) + '\"' if textCase is not none and textCase is defined else ''),\n
-        \ ('\"topText\": ' + (topText | string | lower) if topText is not none and
-        topText is defined else ''),\n  ('\"textOffset\": \"' + (textOffset | string)
-        + '\"' if textOffset is not none and textOffset is defined else ''),\n  ('\"center\":
-        ' + (center | string | lower) if center is not none and center is defined
-        else ''),\n  ('\"color\": ' + (color | string) if color is not none and color
-        is defined else ''),\n  ('\"gradient\": ' + ([gradient1,gradient2] | string)
-        if gradient1 is not none and gradient1 is defined and gradient2 is not none
-        and gradient2 is defined else ''),\n  ('\"blinkText\": \"' + (blinkText |
-        string) + '\"' if blinkText is not none and blinkText is defined else ''),\n
-        \ ('\"fadeText\": \"' + (fadeText | string) + '\"' if fadeText is not none
-        and fadeText is defined else ''),\n  ('\"background\": ' + (background | string)
-        if background is not none and background is defined else ''),\n  ('\"rainbow\":
-        ' + (rainbow | string | lower) if rainbow is not none and rainbow is defined
-        else ''),\n  ('\"icon\": \"' + (icon | string) + '\"' if icon is not none
-        and icon is defined else ''),\n  ('\"pushIcon\": \"' + (pushIcon | string)
-        + '\"' if pushIcon is not none and pushIcon is defined else ''),\n  ('\"repeat\":
-        \"' + (repeat | string) + '\"' if repeat is not none and repeat is defined
-        else ''),\n  ('\"duration\": \"' + (duration | string) + '\"' if duration
-        is not none and duration is defined else ''),\n  ('\"hold\": ' + (hold | string
-        | lower) if hold is not none and hold is defined else ''),\n  ('\"sound\":
-        \"' + (sound | string) + '\"' if sound is not none and sound is defined else
-        ''),\n  ('\"rtttl\": \"' + (rtttl | string) + '\"' if rtttl is not none and
-        rtttl is defined else ''),\n  ('\"loopSound\": ' + (loopSound | string | lower)
-        if loopSound is not none and loopSound is defined else ''),\n  ('\"bar\":
-        ' + (bar | string) if bar is not none and bar is defined else ''),\n  ('\"line\":
-        ' + (line | string) if line is not none and line is defined else ''),\n  ('\"autoscale\":
-        ' + (autoscale | string | lower) if autoscale is not none and autoscale is
-        defined else ''),\n  ('\"progress\": \"' + (progress | string) + '\"' if progress
-        is not none and progress is defined else ''),\n  ('\"progressC\": ' + (progressC
-        | string) if progressC is not none and progressC is defined else ''),\n  ('\"progressBC\":
-        ' + (progressBC | string) if progressBC is not none and progressBC is defined
-        else ''),\n  ('\"pos\": \"' + (pos | string) + '\"' if pos is not none and
-        pos is defined else ''),\n  ('\"draw\": ' + (draw | string) if draw is not
-        none and draw is defined else ''),\n  ('\"lifetime\": \"' + (lifetime | string)
-        + '\"' if lifetime is not none and lifetime is defined else ''),\n  ('\"lifetimeMode\":
-        \"' + (lifetimeMode | string) + '\"' if lifetimeMode is not none and lifetimeMode
-        is defined else ''),\n  ('\"stack\": ' + (stack | string) if stack is not
-        none and stack is defined else ''),\n  ('\"wakeup\": ' + (wakeup | string
-        | lower) if wakeup is not none and wakeup is defined else ''),\n  ('\"noScroll\":
-        ' + (noScroll | string) if noScroll is not none and noScroll is defined else
-        ''),\n  ('\"clients\": ' + (clients | map('device_attr', 'name') | join('/notify
-        ')) if clients is not none and clients is defined else ''),\n  ('\"scrollSpeed\":
-        \"' + (scrollSpeed | string) + '\"' if scrollSpeed is not none and scrollSpeed
-        is defined else ''),\n  ('\"effect\": \"' + (effect | string) + '\"' if effect
-        is not none and effect is defined else ''),\n  ('\"effectSettings\": ' + (effectSettings
-        | string) if effectSettings is not none and effectSettings is defined else
-        ''),\n  ('\"save\": ' + (save | string) if save is not none and save is defined
-        else ''),\n  ('\"overlay\": \"' + (overlay | string) + '\"' if overlay is
-        not none and overlay is defined else '')\n  ] | reject('equalto', '') | join(',
-        ') + \n  '}'\n}}\n"
-  mode: queued
-  icon: mdi:clock-digital
+fields:
+  device:
+    name: AWTRIX Device
+    description: Select the Awtrix device
+    required: true
+    selector:
+      device:
+        integration: mqtt
+        manufacturer: Blueforcer
+        model: AWTRIX 3
+        multiple: false
+  text:
+    name: Message
+    description: The message to show in the notification.
+    required: true
+    default: ''
+    selector:
+      text:
+  duration:
+    name: Duration
+    description: The duration the notification stays on screen
+    required: false
+    default: 7
+    selector:
+      number:
+        min: 0
+        max: 60
+        step: 1
+        unit_of_measurement: seconds
+        mode: slider
+  icon:
+    name: Icon
+    description: The icon ID of the icon to show in the notification
+    default: 0
+    required: false
+    selector:
+      number:
+        mode: box
+  textCase:
+    name: textCase
+    description: Changes the Uppercase setting.
+    required: false
+    default: Global setting
+    selector:
+      select:
+        options:
+        - label: Global setting
+          value: '0'
+        - label: Forces uppercase
+          value: '1'
+        - label: Shows as it sent
+          value: '2'
+  topText:
+    name: topText
+    description: Draw the text on top.
+    default: false
+    required: false
+    selector:
+      boolean:
+  textOffset:
+    name: textOffset
+    description: Sets an offset for the x position of a starting text.
+    required: false
+    default: 0
+    selector:
+      number:
+        min: -32
+        max: 32
+        step: 1
+        unit_of_measurement: pixels
+        mode: slider
+  center:
+    name: center
+    description: Centers a short, non-scrollable text.
+    default: true
+    required: false
+    selector:
+      boolean:
+  rainbow:
+    name: rainbow
+    description: Fades each letter in the text differently through the entire RGB
+      spectrum.
+    default: false
+    required: false
+    selector:
+      boolean:
+  color:
+    name: color
+    description: The text, bar or line color.
+    default:
+    - 255
+    - 255
+    - 255
+    selector:
+      color_rgb:
+  gradient1:
+    name: gradient1
+    description: Colorizes the text in a gradient of two given colors. First color
+    required: false
+    default:
+    - 255
+    - 255
+    - 255
+    selector:
+      color_rgb:
+  gradient2:
+    name: gradient2
+    description: Colorizes the text in a gradient of two given colors. Second color
+    required: false
+    default:
+    - 255
+    - 255
+    - 255
+    selector:
+      color_rgb:
+  blinkText:
+    name: blinkText
+    description: Blinks the text in an given interval in ms, not compatible with
+      gradient or rainbow
+    default: 500
+    required: false
+    selector:
+      number:
+        min: 200
+        max: 5000
+        step: 10
+        unit_of_measurement: ms
+        mode: slider
+  fadeText:
+    name: fadeText
+    description: Fades the text on and off in an given interval, not compatible
+      with gradient or rainbow
+    default: 500
+    required: false
+    selector:
+      number:
+        min: 200
+        max: 5000
+        step: 10
+        unit_of_measurement: ms
+        mode: slider
+  background:
+    name: background
+    description: Sets a background color.
+    required: false
+    default:
+    - 255
+    - 255
+    - 255
+    selector:
+      color_rgb:
+  pushIcon:
+    name: pushIcon
+    description: Behaviour of icon
+    default: Icon doesn't move.
+    required: false
+    selector:
+      select:
+        options:
+        - label: Icon doesn't move.
+          value: '0'
+        - label: Icon moves with text and will not appear again.
+          value: '1'
+        - label: Icon moves with text but appears again when the text starts to
+            scroll again.
+          value: '2'
+  repeat:
+    name: repeat
+    description: Sets how many times the text should be scrolled through the matrix
+      before the app ends.
+    default: -1
+    required: false
+    selector:
+      number:
+        min: -1
+        max: 20
+        step: 1
+        unit_of_measurement: times
+        mode: slider
+  hold:
+    name: hold
+    description: Enable, to hold your **notification** on top until you press the
+      middle button or dismiss it via HomeAssistant.
+    default: false
+    required: false
+    selector:
+      boolean:
+  sound:
+    name: sound
+    description: The filename of your RTTTL ringtone file placed in the MELODIES
+      folder (without extension).
+    default: ''
+    required: false
+    selector:
+      text:
+  rtttl:
+    name: rtttl
+    description: Allows to send the RTTTL sound string with the json.
+    default: ''
+    required: false
+    selector:
+      text:
+  loopSound:
+    name: loopSound
+    description: Loops the sound or rtttl as long as the notification is running.
+    default: false
+    required: false
+    selector:
+      boolean:
+  bar:
+    name: bar
+    description: Draws a bargraph. Without icon maximum 16 values, with icon 11
+      values.
+    default: ''
+    required: false
+    selector:
+      text:
+  line:
+    name: line
+    description: Draws a linechart. Without icon maximum 16 values, with icon 11
+      values.
+    default: ''
+    required: false
+    selector:
+      text:
+  autoscale:
+    name: autoscale
+    description: Enables or disables autoscaling for bar and linechart.
+    default: true
+    required: false
+    selector:
+      boolean:
+  progress:
+    name: progress
+    description: Shows a progress bar. Value can be 0-100.
+    default: -1
+    required: false
+    selector:
+      number:
+        min: 0
+        max: 100
+        step: 1
+        unit_of_measurement: '%'
+        mode: slider
+  progressC:
+    name: progressC
+    description: The color of the progress bar.
+    default:
+    - 255
+    - 255
+    - 255
+    required: false
+    selector:
+      color_rgb:
+  progressBC:
+    name: progressBC
+    description: The color of the progress bar background.
+    default:
+    - 0
+    - 0
+    - 0
+    required: false
+    selector:
+      color_rgb:
+  pos:
+    name: pos
+    description: Defines the position of your custom page in the loop, starting
+      at 0 for the first position. This will only apply with your first push. This
+      function is experimental.
+    default: 0
+    required: false
+    selector:
+      number:
+        min: 0
+        step: 1
+        mode: box
+  draw:
+    name: draw
+    description: Array of drawing instructions. Each object represents a drawing
+      command. See the drawing instructions https://blueforcer.github.io/awtrix3/#/api?id=drawing-instructions).
+    default: ''
+    required: false
+    selector:
+      text:
+  lifetime:
+    name: lifetime
+    description: Removes the custom app when there is no update after the given
+      time in seconds.
+    default: 0
+    required: false
+    selector:
+      number:
+        min: 0
+        max: 500
+        step: 5
+        unit_of_measurement: s
+        mode: slider
+  lifetimeMode:
+    name: lifetimeMode
+    description: 0 = deletes the app, 1 = marks it as staled with a red rectangle
+      around the app
+    default: Deletes the app
+    required: false
+    selector:
+      select:
+        options:
+        - label: Deletes the app
+          value: '0'
+        - label: Marks it as staled with a red rectangle around the app
+          value: '1'
+  stack:
+    name: stack
+    description: Defines if the **notification** will be stacked. `false` will immediately
+      replace the current notification.
+    default: true
+    required: false
+    selector:
+      boolean:
+  wakeup:
+    name: wakeup
+    description: If the Matrix is off, the notification will wake it up for the
+      time of the notification.
+    default: false
+    required: false
+    selector:
+      boolean:
+  noScroll:
+    name: noScroll
+    description: Disables the text scrolling.
+    default: false
+    required: false
+    selector:
+      boolean:
+  clients:
+    name: clients
+    description: Allows forwarding a notification to other awtrix devices. Use the
+      MQTT prefix for MQTT and IP addresses for HTTP.
+    default: ''
+    required: false
+    selector:
+      device:
+        integration: mqtt
+        manufacturer: Blueforcer
+        model: AWTRIX 3
+        multiple: true
+  scrollSpeed:
+    name: scrollSpeed
+    description: Modifies the scroll speed. Enter a percentage value of the original
+      scroll speed.
+    default: 100
+    required: false
+    selector:
+      number:
+        min: 0
+        max: 300
+        step: 10
+        unit_of_measurement: '%'
+        mode: slider
+  effect:
+    name: effect
+    description: Shows an effect (https://blueforcer.github.io/awtrix3/#/effects)
+      as background.The effect can be removed by sending an empty string for effect
+    default: ''
+    required: false
+    selector:
+      select:
+        options:
+        - BrickBreaker
+        - Checkerboard
+        - Fireworks
+        - PingPong
+        - Radar
+        - Ripple
+        - Snake
+        - TwinklingStars
+        - TheaterChase
+        - ColorWaves
+        - SwirlOut
+        - SwirlIn
+        - LookingEyes
+        - Matrix
+        - Pacifica
+        - Plasma
+        - PlasmaCloud
+        - MovingLine
+  effectSettings:
+    name: effectSettings
+    description: One line json needed. Changes color and speed of the effect (https://blueforcer.github.io/awtrix3/#/effects).
+    default: ''
+    required: false
+    selector:
+      text:
+  save:
+    name: save
+    description: Saves your custom app into flash and reloads it after boot. Avoid
+      this for custom apps with high update frequencies because the ESP's flash
+      memory has limited write cycles.
+    default: false
+    required: false
+    selector:
+      boolean:
+  overlay:
+    name: overlay
+    description: Sets an effect overlay (cannot be used with global overlays).
+    default: ''
+    required: false
+    example: true
+    selector:
+      select:
+        options:
+        - clear
+        - snow
+        - rain
+        - drizzle
+        - storm
+        - thunder
+        - frost
+sequence:
+- service: mqtt.publish
+  metadata: {}
+  data:
+    qos: 0
+    retain: false
+    topic: '{{ device_attr(device, "name") }}/notify'
+    payload: "{{\n  '{' +\n  [\n  ('\"text\": \"' + (text | string) + '\"' if text
+      is not none and text is defined else ''),\n  ('\"textCase\": \"' + (textCase
+      | string) + '\"' if textCase is not none and textCase is defined else ''),\n
+      \ ('\"topText\": ' + (topText | string | lower) if topText is not none and
+      topText is defined else ''),\n  ('\"textOffset\": \"' + (textOffset | string)
+      + '\"' if textOffset is not none and textOffset is defined else ''),\n  ('\"center\":
+      ' + (center | string | lower) if center is not none and center is defined
+      else ''),\n  ('\"color\": ' + (color | string) if color is not none and color
+      is defined else ''),\n  ('\"gradient\": ' + ([gradient1,gradient2] | string)
+      if gradient1 is not none and gradient1 is defined and gradient2 is not none
+      and gradient2 is defined else ''),\n  ('\"blinkText\": \"' + (blinkText |
+      string) + '\"' if blinkText is not none and blinkText is defined else ''),\n
+      \ ('\"fadeText\": \"' + (fadeText | string) + '\"' if fadeText is not none
+      and fadeText is defined else ''),\n  ('\"background\": ' + (background | string)
+      if background is not none and background is defined else ''),\n  ('\"rainbow\":
+      ' + (rainbow | string | lower) if rainbow is not none and rainbow is defined
+      else ''),\n  ('\"icon\": \"' + (icon | string) + '\"' if icon is not none
+      and icon is defined else ''),\n  ('\"pushIcon\": \"' + (pushIcon | string)
+      + '\"' if pushIcon is not none and pushIcon is defined else ''),\n  ('\"repeat\":
+      \"' + (repeat | string) + '\"' if repeat is not none and repeat is defined
+      else ''),\n  ('\"duration\": \"' + (duration | string) + '\"' if duration
+      is not none and duration is defined else ''),\n  ('\"hold\": ' + (hold | string
+      | lower) if hold is not none and hold is defined else ''),\n  ('\"sound\":
+      \"' + (sound | string) + '\"' if sound is not none and sound is defined else
+      ''),\n  ('\"rtttl\": \"' + (rtttl | string) + '\"' if rtttl is not none and
+      rtttl is defined else ''),\n  ('\"loopSound\": ' + (loopSound | string | lower)
+      if loopSound is not none and loopSound is defined else ''),\n  ('\"bar\":
+      ' + (bar | string) if bar is not none and bar is defined else ''),\n  ('\"line\":
+      ' + (line | string) if line is not none and line is defined else ''),\n  ('\"autoscale\":
+      ' + (autoscale | string | lower) if autoscale is not none and autoscale is
+      defined else ''),\n  ('\"progress\": \"' + (progress | string) + '\"' if progress
+      is not none and progress is defined else ''),\n  ('\"progressC\": ' + (progressC
+      | string) if progressC is not none and progressC is defined else ''),\n  ('\"progressBC\":
+      ' + (progressBC | string) if progressBC is not none and progressBC is defined
+      else ''),\n  ('\"pos\": \"' + (pos | string) + '\"' if pos is not none and
+      pos is defined else ''),\n  ('\"draw\": ' + (draw | string) if draw is not
+      none and draw is defined else ''),\n  ('\"lifetime\": \"' + (lifetime | string)
+      + '\"' if lifetime is not none and lifetime is defined else ''),\n  ('\"lifetimeMode\":
+      \"' + (lifetimeMode | string) + '\"' if lifetimeMode is not none and lifetimeMode
+      is defined else ''),\n  ('\"stack\": ' + (stack | string) if stack is not
+      none and stack is defined else ''),\n  ('\"wakeup\": ' + (wakeup | string
+      | lower) if wakeup is not none and wakeup is defined else ''),\n  ('\"noScroll\":
+      ' + (noScroll | string) if noScroll is not none and noScroll is defined else
+      ''),\n  ('\"clients\": ' + (clients | map('device_attr', 'name') | join('/notify
+      ')) if clients is not none and clients is defined else ''),\n  ('\"scrollSpeed\":
+      \"' + (scrollSpeed | string) + '\"' if scrollSpeed is not none and scrollSpeed
+      is defined else ''),\n  ('\"effect\": \"' + (effect | string) + '\"' if effect
+      is not none and effect is defined else ''),\n  ('\"effectSettings\": ' + (effectSettings
+      | string) if effectSettings is not none and effectSettings is defined else
+      ''),\n  ('\"save\": ' + (save | string) if save is not none and save is defined
+      else ''),\n  ('\"overlay\": \"' + (overlay | string) + '\"' if overlay is
+      not none and overlay is defined else '')\n  ] | reject('equalto', '') | join(',
+      ') + \n  '}'\n}}\n"
+mode: queued
+icon: mdi:clock-digital
