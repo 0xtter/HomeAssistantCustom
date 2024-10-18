@@ -6,16 +6,12 @@ blueprint:
   source_url: https://raw.githubusercontent.com/0xtter/HomeAssistantCustom/main/blueprints/awtrix_notification.yaml
   author: 0xtter
 fields:
-  device:
-    name: AWTRIX Device
-    description: Select the Awtrix device
+  topic:
+    name: MQTT topic
+    description: Select the MQTT topic
     required: true
     selector:
-      device:
-        integration: mqtt
-        manufacturer: Blueforcer
-        model: AWTRIX 3
-        multiple: false
+      text:
   text:
     name: Message
     description: The message to show in the notification.
@@ -94,6 +90,7 @@ fields:
   color:
     name: color
     description: The text, bar or line color.
+    required: false
     default:
     - 255
     - 255
@@ -428,59 +425,46 @@ sequence:
   data:
     qos: 0
     retain: false
-    topic: '{{ device_attr(device, "name") }}/notify'
-    payload: "{{\n  '{' +\n  [\n  ('\"text\": \"' + (text | string) + '\"' if text
-      is not none and text is defined else ''),\n  ('\"textCase\": \"' + (textCase
-      | string) + '\"' if textCase is not none and textCase is defined else ''),\n
-      \ ('\"topText\": ' + (topText | string | lower) if topText is not none and
-      topText is defined else ''),\n  ('\"textOffset\": \"' + (textOffset | string)
-      + '\"' if textOffset is not none and textOffset is defined else ''),\n  ('\"center\":
-      ' + (center | string | lower) if center is not none and center is defined
-      else ''),\n  ('\"color\": ' + (color | string) if color is not none and color
-      is defined else ''),\n  ('\"gradient\": ' + ([gradient1,gradient2] | string)
-      if gradient1 is not none and gradient1 is defined and gradient2 is not none
-      and gradient2 is defined else ''),\n  ('\"blinkText\": \"' + (blinkText |
-      string) + '\"' if blinkText is not none and blinkText is defined else ''),\n
-      \ ('\"fadeText\": \"' + (fadeText | string) + '\"' if fadeText is not none
-      and fadeText is defined else ''),\n  ('\"background\": ' + (background | string)
-      if background is not none and background is defined else ''),\n  ('\"rainbow\":
-      ' + (rainbow | string | lower) if rainbow is not none and rainbow is defined
-      else ''),\n  ('\"icon\": \"' + (icon | string) + '\"' if icon is not none
-      and icon is defined else ''),\n  ('\"pushIcon\": \"' + (pushIcon | string)
-      + '\"' if pushIcon is not none and pushIcon is defined else ''),\n  ('\"repeat\":
-      \"' + (repeat | string) + '\"' if repeat is not none and repeat is defined
-      else ''),\n  ('\"duration\": \"' + (duration | string) + '\"' if duration
-      is not none and duration is defined else ''),\n  ('\"hold\": ' + (hold | string
-      | lower) if hold is not none and hold is defined else ''),\n  ('\"sound\":
-      \"' + (sound | string) + '\"' if sound is not none and sound is defined else
-      ''),\n  ('\"rtttl\": \"' + (rtttl | string) + '\"' if rtttl is not none and
-      rtttl is defined else ''),\n  ('\"loopSound\": ' + (loopSound | string | lower)
-      if loopSound is not none and loopSound is defined else ''),\n  ('\"bar\":
-      ' + (bar | string) if bar is not none and bar is defined else ''),\n  ('\"line\":
-      ' + (line | string) if line is not none and line is defined else ''),\n  ('\"autoscale\":
-      ' + (autoscale | string | lower) if autoscale is not none and autoscale is
-      defined else ''),\n  ('\"progress\": \"' + (progress | string) + '\"' if progress
-      is not none and progress is defined else ''),\n  ('\"progressC\": ' + (progressC
-      | string) if progressC is not none and progressC is defined else ''),\n  ('\"progressBC\":
-      ' + (progressBC | string) if progressBC is not none and progressBC is defined
-      else ''),\n  ('\"pos\": \"' + (pos | string) + '\"' if pos is not none and
-      pos is defined else ''),\n  ('\"draw\": ' + (draw | string) if draw is not
-      none and draw is defined else ''),\n  ('\"lifetime\": \"' + (lifetime | string)
-      + '\"' if lifetime is not none and lifetime is defined else ''),\n  ('\"lifetimeMode\":
-      \"' + (lifetimeMode | string) + '\"' if lifetimeMode is not none and lifetimeMode
-      is defined else ''),\n  ('\"stack\": ' + (stack | string) if stack is not
-      none and stack is defined else ''),\n  ('\"wakeup\": ' + (wakeup | string
-      | lower) if wakeup is not none and wakeup is defined else ''),\n  ('\"noScroll\":
-      ' + (noScroll | string) if noScroll is not none and noScroll is defined else
-      ''),\n  ('\"clients\": ' + (clients | map('device_attr', 'name') | join('/notify
-      ')) if clients is not none and clients is defined else ''),\n  ('\"scrollSpeed\":
-      \"' + (scrollSpeed | string) + '\"' if scrollSpeed is not none and scrollSpeed
-      is defined else ''),\n  ('\"effect\": \"' + (effect | string) + '\"' if effect
-      is not none and effect is defined else ''),\n  ('\"effectSettings\": ' + (effectSettings
-      | string) if effectSettings is not none and effectSettings is defined else
-      ''),\n  ('\"save\": ' + (save | string) if save is not none and save is defined
-      else ''),\n  ('\"overlay\": \"' + (overlay | string) + '\"' if overlay is
-      not none and overlay is defined else '')\n  ] | reject('equalto', '') | join(',
-      ') + \n  '}'\n}}\n"
-mode: queued
+    topic: '{{ topic }}/notify'
+    mode: queued
+    payload: "{{'{' +[
+              ('\"text\": \"' + (text | string) + '\"' if text is not none and text is defined else ''),
+              ('\"textCase\": \"' + (textCase | string) + '\"' if textCase is not none and textCase is defined else ''),
+              ('\"topText\": ' + (topText | string | lower) if topText is not none and topText is defined else ''),
+              ('\"textOffset\": \"' + (textOffset | string) + '\"' if textOffset is not none and textOffset is defined else ''),
+              ('\"center\": ' + (center | string | lower) if center is not none and center is defined else ''),
+              ('\"color\": ' + (color | string) if color is not none and color is defined else ''),
+              ('\"gradient\": ' + ([gradient1,gradient2] | string) if gradient1 is not none and gradient1 is defined and gradient2 is not none and gradient2 is defined else ''),
+              ('\"blinkText\": \"' + (blinkText | string) + '\"' if blinkText is not none and blinkText is defined else ''),
+              ('\"fadeText\": \"' + (fadeText | string) + '\"' if fadeText is not none and fadeText is defined else ''),
+              ('\"background\": ' + (background | string) if background is not none and background is defined else ''),
+              ('\"rainbow\": ' + (rainbow | string | lower) if rainbow is not none and rainbow is defined else ''),
+              ('\"icon\": \"' + (icon | string) + '\"' if icon is not none and icon is defined else ''),
+              ('\"pushIcon\": \"' + (pushIcon | string) + '\"' if pushIcon is not none and pushIcon is defined else ''),
+              ('\"repeat\": \"' + (repeat | string) + '\"' if repeat is not none and repeat is defined else ''),
+              ('\"duration\": \"' + (duration | string) + '\"' if duration is not none and duration is defined else ''),
+              ('\"hold\": ' + (hold | string | lower) if hold is not none and hold is defined else ''),
+              ('\"sound\": \"' + (sound | string) + '\"' if sound is not none and sound is defined else ''),
+              ('\"rtttl\": \"' + (rtttl | string) + '\"' if rtttl is not none and rtttl is defined else ''),
+              ('\"loopSound\": ' + (loopSound | string | lower) if loopSound is not none and loopSound is defined else ''),
+              ('\"bar\": ' + (bar | string) if bar is not none and bar is defined else ''),
+              ('\"line\": ' + (line | string) if line is not none and line is defined else ''),
+              ('\"autoscale\": ' + (autoscale | string | lower) if autoscale is not none and autoscale is defined else ''),
+              ('\"progress\": \"' + (progress | string) + '\"' if progress is not none and progress is defined else ''),
+              ('\"progressC\": ' + (progressC | string) if progressC is not none and progressC is defined else ''),
+              ('\"progressBC\": ' + (progressBC | string) if progressBC is not none and progressBC is defined else ''),
+              ('\"pos\": \"' + (pos | string) + '\"' if pos is not none and pos is defined else ''),
+              ('\"draw\": ' + (draw | string) if draw is not none and draw is defined else ''),
+              ('\"lifetime\": \"' + (lifetime | string) + '\"' if lifetime is not none and lifetime is defined else ''),
+              ('\"lifetimeMode\": \"' + (lifetimeMode | string) + '\"' if lifetimeMode is not none and lifetimeMode is defined else ''),
+              ('\"stack\": ' + (stack | string) if stack is not none and stack is defined else ''),
+              ('\"wakeup\": ' + (wakeup | string | lower) if wakeup is not none and wakeup is defined else ''),
+              ('\"noScroll\": ' + (noScroll | string) if noScroll is not none and noScroll is defined else ''),
+              ('\"clients\": ' + (clients | map('device_attr', 'name') | join('/notify ')) if clients is not none and clients is defined else ''),
+              ('\"scrollSpeed\": \"' + (scrollSpeed | string) + '\"' if scrollSpeed is not none and scrollSpeed is defined else ''),
+              ('\"effect\": \"' + (effect | string) + '\"' if effect is not none and effect is defined else ''),
+              ('\"effectSettings\": ' + (effectSettings | string) if effectSettings is not none and effectSettings is defined else ''),
+              ('\"save\": ' + (save | string) if save is not none and save is defined else ''),
+              ('\"overlay\": \"' + (overlay | string) + '\"' if overlay is not none and overlay is defined else '')
+              ] | reject('equalto', '') | join(', ') + '}' }}"
 icon: mdi:clock-digital
