@@ -16,7 +16,7 @@ fields:
     name: Message
     description: The message to show in the notification.
     required: true
-    default: ''
+    default: ""
     selector:
       text:
   duration:
@@ -39,6 +39,8 @@ fields:
     selector:
       number:
         mode: box
+        max: 100000
+        min: 0
   textCase:
     name: textCase
     description: Changes the Uppercase setting.
@@ -47,12 +49,12 @@ fields:
     selector:
       select:
         options:
-        - label: Global setting
-          value: '0'
-        - label: Forces uppercase
-          value: '1'
-        - label: Shows as it sent
-          value: '2'
+          - label: Global setting
+            value: "0"
+          - label: Forces uppercase
+            value: "1"
+          - label: Shows as it sent
+            value: "2"
   topText:
     name: topText
     description: Draw the text on top.
@@ -81,7 +83,8 @@ fields:
       boolean:
   rainbow:
     name: rainbow
-    description: Fades each letter in the text differently through the entire RGB
+    description:
+      Fades each letter in the text differently through the entire RGB
       spectrum.
     default: false
     required: false
@@ -92,9 +95,9 @@ fields:
     description: The text, bar or line color.
     required: false
     default:
-    - 255
-    - 255
-    - 255
+      - 255
+      - 255
+      - 255
     selector:
       color_rgb:
   gradient1:
@@ -102,9 +105,9 @@ fields:
     description: Colorizes the text in a gradient of two given colors. First color
     required: false
     default:
-    - 255
-    - 255
-    - 255
+      - 255
+      - 255
+      - 255
     selector:
       color_rgb:
   gradient2:
@@ -112,9 +115,9 @@ fields:
     description: Colorizes the text in a gradient of two given colors. Second color
     required: false
     default:
-    - 255
-    - 255
-    - 255
+      - 255
+      - 255
+      - 255
     selector:
       color_rgb:
   blinkText:
@@ -148,9 +151,9 @@ fields:
     description: Sets a background color.
     required: false
     default:
-    - 255
-    - 255
-    - 255
+      - 255
+      - 255
+      - 255
     selector:
       color_rgb:
   pushIcon:
@@ -161,16 +164,18 @@ fields:
     selector:
       select:
         options:
-        - label: Icon doesn't move.
-          value: '0'
-        - label: Icon moves with text and will not appear again.
-          value: '1'
-        - label: Icon moves with text but appears again when the text starts to
-            scroll again.
-          value: '2'
+          - label: Icon doesn't move.
+            value: "0"
+          - label: Icon moves with text and will not appear again.
+            value: "1"
+          - label:
+              Icon moves with text but appears again when the text starts to
+              scroll again.
+            value: "2"
   repeat:
     name: repeat
-    description: Sets how many times the text should be scrolled through the matrix
+    description:
+      Sets how many times the text should be scrolled through the matrix
       before the app ends.
     default: -1
     required: false
@@ -183,7 +188,8 @@ fields:
         mode: slider
   hold:
     name: hold
-    description: Enable, to hold your **notification** on top until you press the
+    description:
+      Enable, to hold your **notification** on top until you press the
       middle button or dismiss it via HomeAssistant.
     default: false
     required: false
@@ -193,14 +199,14 @@ fields:
     name: sound
     description: The filename of your RTTTL ringtone file placed in the MELODIES
       folder (without extension).
-    default: ''
+    default: ""
     required: false
     selector:
       text:
   rtttl:
     name: rtttl
     description: Allows to send the RTTTL sound string with the json.
-    default: ''
+    default: ""
     required: false
     selector:
       text:
@@ -215,7 +221,7 @@ fields:
     name: bar
     description: Draws a bargraph. Without icon maximum 16 values, with icon 11
       values.
-    default: ''
+    default: ""
     required: false
     selector:
       text:
@@ -223,7 +229,7 @@ fields:
     name: line
     description: Draws a linechart. Without icon maximum 16 values, with icon 11
       values.
-    default: ''
+    default: ""
     required: false
     selector:
       text:
@@ -244,15 +250,15 @@ fields:
         min: 0
         max: 100
         step: 1
-        unit_of_measurement: '%'
+        unit_of_measurement: "%"
         mode: slider
   progressC:
     name: progressC
     description: The color of the progress bar.
     default:
-    - 255
-    - 255
-    - 255
+      - 255
+      - 255
+      - 255
     required: false
     selector:
       color_rgb:
@@ -260,9 +266,9 @@ fields:
     name: progressBC
     description: The color of the progress bar background.
     default:
-    - 0
-    - 0
-    - 0
+      - 0
+      - 0
+      - 0
     required: false
     selector:
       color_rgb:
@@ -276,13 +282,14 @@ fields:
     selector:
       number:
         min: 0
+        max: 25
         step: 1
         mode: box
   draw:
     name: draw
     description: Array of drawing instructions. Each object represents a drawing
       command. See the drawing instructions https://blueforcer.github.io/awtrix3/#/api?id=drawing-instructions).
-    default: ''
+    default: ""
     required: false
     selector:
       text:
@@ -301,20 +308,22 @@ fields:
         mode: slider
   lifetimeMode:
     name: lifetimeMode
-    description: 0 = deletes the app, 1 = marks it as staled with a red rectangle
+    description:
+      0 = deletes the app, 1 = marks it as staled with a red rectangle
       around the app
     default: Deletes the app
     required: false
     selector:
       select:
         options:
-        - label: Deletes the app
-          value: '0'
-        - label: Marks it as staled with a red rectangle around the app
-          value: '1'
+          - label: Deletes the app
+            value: "0"
+          - label: Marks it as staled with a red rectangle around the app
+            value: "1"
   stack:
     name: stack
-    description: Defines if the **notification** will be stacked. `false` will immediately
+    description:
+      Defines if the **notification** will be stacked. `false` will immediately
       replace the current notification.
     default: true
     required: false
@@ -337,19 +346,17 @@ fields:
       boolean:
   clients:
     name: clients
-    description: Allows forwarding a notification to other awtrix devices. Use the
+    description:
+      Allows forwarding a notification to other awtrix devices. Use the
       MQTT prefix for MQTT and IP addresses for HTTP.
-    default: ''
+    default: ""
     required: false
     selector:
-      device:
-        integration: mqtt
-        manufacturer: Blueforcer
-        model: AWTRIX 3
-        multiple: true
+      text:
   scrollSpeed:
     name: scrollSpeed
-    description: Modifies the scroll speed. Enter a percentage value of the original
+    description:
+      Modifies the scroll speed. Enter a percentage value of the original
       scroll speed.
     default: 100
     required: false
@@ -358,45 +365,47 @@ fields:
         min: 0
         max: 300
         step: 10
-        unit_of_measurement: '%'
+        unit_of_measurement: "%"
         mode: slider
   effect:
     name: effect
-    description: Shows an effect (https://blueforcer.github.io/awtrix3/#/effects)
+    description:
+      Shows an effect (https://blueforcer.github.io/awtrix3/#/effects)
       as background.The effect can be removed by sending an empty string for effect
-    default: ''
+    default: ""
     required: false
     selector:
       select:
         options:
-        - BrickBreaker
-        - Checkerboard
-        - Fireworks
-        - PingPong
-        - Radar
-        - Ripple
-        - Snake
-        - TwinklingStars
-        - TheaterChase
-        - ColorWaves
-        - SwirlOut
-        - SwirlIn
-        - LookingEyes
-        - Matrix
-        - Pacifica
-        - Plasma
-        - PlasmaCloud
-        - MovingLine
+          - BrickBreaker
+          - Checkerboard
+          - Fireworks
+          - PingPong
+          - Radar
+          - Ripple
+          - Snake
+          - TwinklingStars
+          - TheaterChase
+          - ColorWaves
+          - SwirlOut
+          - SwirlIn
+          - LookingEyes
+          - Matrix
+          - Pacifica
+          - Plasma
+          - PlasmaCloud
+          - MovingLine
   effectSettings:
     name: effectSettings
     description: One line json needed. Changes color and speed of the effect (https://blueforcer.github.io/awtrix3/#/effects).
-    default: ''
+    default: ""
     required: false
     selector:
       text:
   save:
     name: save
-    description: Saves your custom app into flash and reloads it after boot. Avoid
+    description:
+      Saves your custom app into flash and reloads it after boot. Avoid
       this for custom apps with high update frequencies because the ESP's flash
       memory has limited write cycles.
     default: false
@@ -406,21 +415,21 @@ fields:
   overlay:
     name: overlay
     description: Sets an effect overlay (cannot be used with global overlays).
-    default: ''
+    default: ""
     required: false
-    example: true
+    example: "clear"
     selector:
       select:
         options:
-        - clear
-        - snow
-        - rain
-        - drizzle
-        - storm
-        - thunder
-        - frost
+          - clear
+          - snow
+          - rain
+          - drizzle
+          - storm
+          - thunder
+          - frost
 sequence:
-- service: mqtt.publish
+- action: mqtt.publish
   metadata: {}
   data:
     qos: 0
@@ -468,3 +477,4 @@ sequence:
               ('\"overlay\": \"' + (overlay | string) + '\"' if overlay is not none and overlay is defined else '')
               ] | reject('equalto', '') | join(', ') + '}' }}"
 icon: mdi:clock-digital
+mode: queued
